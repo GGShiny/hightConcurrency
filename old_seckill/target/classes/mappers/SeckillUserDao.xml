@@ -1,0 +1,62 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Config 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.thought.it.dao.SeckillUserDao">
+    <select id="findSeckillUserById" parameterType="int" resultType="seckillUser">
+        select * from seckilluser where id = #{value}
+    </select>
+
+    <insert id="insertSeckillUser" parameterType="seckillUser">
+        <selectKey keyProperty="id" order="AFTER" resultType="java.lang.Integer">
+            select LAST_INSERT_ID()
+        </selectKey>
+        insert into seckilluser(username, useraccount, userpassword, usersex, userage, useraddress, useremail)
+        value(#{username}, #{useraccount}, #{userpassword}, #{usersex}, #{userage}, #{useraddress}, #{useremail})
+    </insert>
+
+    <update id="updateSeckillUser" parameterType="seckillUser">
+        update seckilluser set username=#{username}, useraccount=#{useraccount}, userpassword=#{userpassword}, usersex=#{usersex}, useraddress=#{useraddress}, useremail=#{useremail} where id = #{id}
+    </update>
+
+    <delete id="deleteSeckillUserById" parameterType="int">
+        DELETE from seckilluser where id = #{id}
+    </delete>
+
+    <sql id="constomsql">
+        <if test="constomSeckillUserVo != null">
+            <if test="constomSeckillUserVo.username != null and constomSeckillUserVo.username != ''">
+                and username = "${constomSeckillUserVo.username}"
+            </if>
+            <if test="constomSeckillUserVo.useraccount != null and constomSeckillUserVo.useraccount != ''">
+                and useraccount = "${constomSeckillUserVo.useraccount}"
+            </if>
+            <if test="constomSeckillUserVo.userpassword != null and constomSeckillUserVo.userpassword != ''">
+                and userpassword = "${constomSeckillUserVo.userpassword}"
+            </if>
+            <if test="constomSeckillUserVo.usersex != null and constomSeckillUserVo.usersex != ''">
+                and usersex = "${constomSeckillUserVo.usersex}"
+            </if>
+            <if test="constomSeckillUserVo.userage != null and constomSeckillUserVo.userage != ''">
+                and userage = "${constomSeckillUserVo.userage}"
+            </if>
+            <if test="constomSeckillUserVo.useraddress != null and constomSeckillUserVo.useraddress != ''">
+                and useraddress = "${constomSeckillUserVo.useraddress}"
+            </if>
+            <if test="constomSeckillUserVo.useremail != null and constomSeckillUserVo.useremail != ''">
+                and useremail = "${constomSeckillUserVo.useremail}"
+            </if>
+        </if>
+    </sql>
+
+    <select id="findSeckillUserByVo" parameterType="seckillUserVo" resultType="seckillUser">
+        select * from seckilluser
+        <where>
+            <include refid="constomsql"></include>
+        </where>
+    </select>
+
+    <select id="findUserByAccount" parameterType="java.lang.String" resultType="seckillUser">
+        select * from seckilluser where useraccount = #{value}
+    </select>
+</mapper>

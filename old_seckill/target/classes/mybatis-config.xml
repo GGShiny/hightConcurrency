@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE configuration
+        PUBLIC "-//mybatis.org//DTD Config 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-config.dtd">
+<configuration>
+    <typeAliases>
+        <!-- 商家 -->
+        <typeAlias type="com.thought.it.entity.Person" alias="person" />
+        <typeAlias type="com.thought.it.entity.Merchant" alias="merchant" />
+        <typeAlias type="com.thought.it.vo.MerchantVo" alias="merchantVo" />
+        <typeAlias type="com.thought.it.vo.ConstomMerchantVo" alias="constomMerchantVo" />
+
+        <!-- 用户 -->
+        <typeAlias type="com.thought.it.entity.SeckillUser" alias="seckillUser" />
+        <typeAlias type="com.thought.it.vo.SeckillUserVo" alias="seckillUserVo" />
+        <typeAlias type="com.thought.it.vo.ConstomSeckillUserVo" alias="constomSeckillUserVo" />
+
+        <!-- 秒杀商品 -->
+        <typeAlias type="com.thought.it.entity.SkProductInfo" alias="skProductInfo" />
+        <typeAlias type="com.thought.it.vo.SkProductVo" alias="skProductVo" />
+        <typeAlias type="com.thought.it.entity.SkProductDetail" alias="skProductDetail" />
+
+        <!-- 订单 -->
+        <typeAlias type="com.thought.it.entity.SkOrder" alias="skOrder" />
+        <typeAlias type="com.thought.it.vo.SkOrderVo" alias="skOrderVo" />
+    </typeAliases>
+</configuration>

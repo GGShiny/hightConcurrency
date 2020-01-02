@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xmlns:context="http://www.springframework.org/schema/context"
+       xsi:schemaLocation="http://www.springframework.org/schema/beans
+    http://www.springframework.org/schema/beans/spring-beans.xsd
+    http://www.springframework.org/schema/context
+    http://www.springframework.org/schema/context/spring-context.xsd">
+
+    <!-- 自动包扫描 -->
+    <context:component-scan base-package="com.thought.it.*" />
+
+    <!-- 引入外部配置文件 -->
+    <bean id="propertyConfigurer" class="org.springframework.beans.factory.config.PropertiesFactoryBean">
+        <property name="location" value="classpath:jdbc.properties" />
+    </bean>
+
+
+    <!--&lt;!&ndash; 事务管理 &ndash;&gt;-->
+    <!--<bean id="transactionManager" class="org.springframework.jdbc.datasource.DataSourceTransactionManager">-->
+        <!--<property name="dataSource" ref="dataSource" />-->
+    <!--</bean>-->
+
+    <!--<bean id="druid-stat-intercepto" class="com.alibaba.druid.support.spring.stat.DruidStatInterceptor">-->
+    <!--</bean>-->
+
+    <!--<bean id="druid-stat-pointcut" class="org.springframework.aop.support.JdkRegexpMethodPointcut" scope="prototype">-->
+        <!--<property name="patterns">-->
+            <!--<list>-->
+                <!--<value>com.thought.it.*</value>-->
+            <!--</list>-->
+        <!--</property>-->
+    <!--</bean>-->
+
+    <!--<aop:config proxy-target-class="true">-->
+        <!--<aop:advisor advice-ref="druid-stat-intercepto" pointcut-ref="druid-stat-pointcut" />-->
+    <!--</aop:config>-->
+    <!--&lt;!&ndash; 使用声明式事务管理 &ndash;&gt;-->
+    <!--<tx:annotation-driven transaction-manager="txManager" />-->
+</beans>

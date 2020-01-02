@@ -1,0 +1,14 @@
+com\thought\it\entity\Merchant.class
+com\thought\it\vo\ConstomOrderVo.class
+com\thought\it\vo\ConstomSeckillUserVo.class
+com\thought\it\entity\Person.class
+com\thought\it\entity\SkProductInfo.class
+com\thought\it\vo\SeckillUserVo.class
+com\thought\it\vo\SkProductVo.class
+com\thought\it\entity\SkOrder.class
+com\thought\it\entity\SeckillUser.class
+com\thought\it\entity\SkProductDetail.class
+com\thought\it\vo\ConstomSkProductVo.class
+com\thought\it\vo\SkOrderVo.class
+com\thought\it\vo\MerchantVo.class
+com\thought\it\vo\ConstomMerchantVo.class

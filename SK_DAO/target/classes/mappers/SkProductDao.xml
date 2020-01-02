@@ -1,0 +1,126 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Config 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.thought.it.dao.SkProductDao">
+    <select id="findSkProductById" parameterType="int" resultType="skProductInfo">
+        select * from seckillproductinfo where id = #{value}
+    </select>
+
+    <insert id="applySkProduct" parameterType="skProductInfo">
+        <selectKey keyProperty="id" order="AFTER" resultType="java.lang.Integer">
+            select LAST_INSERT_ID()
+        </selectKey>
+        insert into seckillproductinfo(productid, producttitle, productpicture, seckillprice, originalprice, merchantid, applydate, auditstate, starttime, endtime, productcount, stockcount, desciption)
+        value(#{productid}, #{producttitle}, #{productpicture}, #{seckillprice}, #{originalprice}, #{merchantid}, #{applydate}, #{auditstate}, #{starttime}, #{endtime}, #{productcount}, #{stockcount}, #{desciption})
+    </insert>
+
+    <update id="updateSkProduct" parameterType="skProductInfo">
+        update seckillproductinfo set
+        producttitle=#{producttitle},
+        productpicture=#{productpicture},
+        seckillprice=#{seckillprice},
+        originalprice=#{originalprice},
+        starttime=#{starttime},
+        endtime=#{endtime},
+        productcount=#{productcount},
+        stockcount=#{stockcount},
+        desciption=#{desciption}
+        where id = #{id}
+    </update>
+
+    <update id="updateSkProductState" parameterType="skProductVo">
+        update seckillproductinfo set auditstate=#{constomSkProductVo.auditstate} where id = #{constomSkProductVo.id}
+    </update>
+
+    <delete id="delSkProduct" parameterType="int">
+        DELETE from seckillproductinfo where id = #{id}
+    </delete>
+
+    <sql id="consutomsql">
+        <if test="constomSkProductVo != null">
+            <if test="constomSkProductVo.productid != null and constomSkProductVo.productid != ''">
+                and productid = "${constomSkProductVo.productid}"
+            </if>
+
+            <if test="constomSkProductVo.producttitle != null and constomSkProductVo.producttitle != ''">
+                and producttitle like "%${constomSkProductVo.producttitle}%"
+            </if>
+
+            <if test="constomSkProductVo.startSeckillprice != null and constomSkProductVo.startSeckillprice != ''">
+                and seckillprice <![CDATA[ >= ]]> "${constomSkProductVo.startSeckillprice}"
+            </if>
+            <if test="constomSkProductVo.endSeckillprice != null and constomSkProductVo.endSeckillprice != ''">
+                and seckillprice <![CDATA[ <= ]]> "${constomSkProductVo.endSeckillprice}"
+            </if>
+
+            <if test="constomSkProductVo.startOriginalprice != null and constomSkProductVo.startOriginalprice != ''">
+                and originalprice <![CDATA[ >= ]]> "${constomSkProductVo.startOriginalprice}"
+            </if>
+            <if test="constomSkProductVo.endOriginalprice != null and constomSkProductVo.endOriginalprice != ''">
+                and originalprice <![CDATA[ <= ]]> "${constomSkProductVo.endOriginalprice}"
+            </if>
+
+            <if test="constomSkProductVo.startApplydate != null and constomSkProductVo.startApplydate != ''">
+                and applydate <![CDATA[ >= ]]> STR_TO_DATE(#{constomSkProductVo.startApplydate},'%Y-%m-%d %H:%i:%S')
+            </if>
+            <if test="constomSkProductVo.endApplydate != null and constomSkProductVo.endApplydate != ''">
+                and applydate <![CDATA[ <= ]]> STR_TO_DATE(#{constomSkProductVo.startApplydate},'%Y-%m-%d %H:%i:%S')
+            </if>
+
+            <if test="constomSkProductVo.startAuditdate != null and constomSkProductVo.startAuditdate != ''">
+                and auditdate <![CDATA[ >= ]]> STR_TO_DATE(#{constomSkProductVo.startAuditdate},'%Y-%m-%d %H:%i:%S')
+            </if>
+            <if test="constomSkProductVo.endAuditdate != null and constomSkProductVo.endAuditdate != ''">
+                and auditdate <![CDATA[ <= ]]> STR_TO_DATE(#{constomSkProductVo.startAuditdate},'%Y-%m-%d %H:%i:%S')
+            </if>
+
+            <if test="constomSkProductVo.startStarttime != null and constomSkProductVo.startStarttime != ''">
+                and starttime <![CDATA[ >= ]]> STR_TO_DATE(#{constomSkProductVo.startStarttime},'%Y-%m-%d %H:%i:%S')
+            </if>
+            <if test="constomSkProductVo.endStarttime != null and constomSkProductVo.endStarttime != ''">
+                and starttime <![CDATA[ <= ]]> STR_TO_DATE(#{constomSkProductVo.startStarttime},'%Y-%m-%d %H:%i:%S')
+            </if>
+
+            <if test="constomSkProductVo.startEndtime != null and constomSkProductVo.startEndtime != ''">
+                and endtime <![CDATA[ >= ]]> STR_TO_DATE(#{constomSkProductVo.startEndtime},'%Y-%m-%d %H:%i:%S')
+            </if>
+            <if test="constomSkProductVo.endEndtime != null and constomSkProductVo.endEndtime != ''">
+                and endtime <![CDATA[ <= ]]> STR_TO_DATE(#{constomSkProductVo.startEndtime},'%Y-%m-%d %H:%i:%S')
+            </if>
+
+            <if test="constomSkProductVo.auditstate != null and constomSkProductVo.auditstate != ''">
+                and auditstate = "${constomSkProductVo.auditstate}"
+            </if>
+
+            <if test="constomSkProductVo.productcount != null and constomSkProductVo.productcount != ''">
+                and productcount = "${constomSkProductVo.productcount}"
+            </if>
+
+            <if test="constomSkProductVo.desciption != null and constomSkProductVo.desciption != ''">
+                and desciption LIKE "%${constomSkProductVo.desciption}%"
+            </if>
+
+            <if test="constomSkProductVo.startProductCount != null and constomSkProductVo.startProductCount != ''">
+                and productcount <![CDATA[ >= ]]> "${constomSkProductVo.startProductCount}"
+            </if>
+            <if test="constomSkProductVo.endProductCount != null and constomSkProductVo.endProductCount != ''">
+                and productcount <![CDATA[ <= ]]> "${constomSkProductVo.endProductCount}"
+            </if>
+
+            <if test="constomSkProductVo.startStockCount != null and constomSkProductVo.startStockCount != ''">
+                and stockcount <![CDATA[ >= ]]> "${constomSkProductVo.startStockCount}"
+            </if>
+            <if test="constomSkProductVo.endStockCount != null and constomSkProductVo.endStockCount != ''">
+                and stockcount <![CDATA[ <= ]]> "${constomSkProductVo.endStockCount}"
+            </if>
+        </if>
+    </sql>
+
+    <select id="listSkProduct" parameterType="skProductVo" resultType="skProductInfo">
+        select * from seckillproductinfo
+        <where>
+            <include refid="consutomsql"></include>
+        </where>
+    </select>
+</mapper>
